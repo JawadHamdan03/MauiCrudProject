@@ -16,6 +16,13 @@
                     <DataTemplate>
                         <Grid Padding="10" ColumnDefinitions="*,Auto,Auto">
                             <Label Grid.Column="0" Text="{Binding Name}" VerticalOptions="Center"/>
+                            <Button
+                                Text="Delete User"
+                                Grid.Column="2"
+                                BackgroundColor="Red"
+                                CommandParameter="{Binding .}"
+                                Clicked="OnDeleteUserClicked"
+                                />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

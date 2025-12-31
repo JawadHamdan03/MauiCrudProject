@@ -37,7 +37,7 @@ namespace CRUD_APP
         {
             if (string.IsNullOrWhiteSpace(NameEntry.Text))
             {
-                await DisplayAlert("Error","name can't be Empty","Ok");
+                await DisplayAlertAsync("Error","name can't be Empty","Ok");
                 return;
             }
 
@@ -49,13 +49,42 @@ namespace CRUD_APP
 
                 Users.Add(user);
                 NameEntry.Text = "";
-                await DisplayAlert("Success", $"User :{user.Name} added successfully","OK");
+                await DisplayAlertAsync("Success", $"User :{user.Name} added successfully","OK");
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", $"{ex.Message}", "Ok");
+                await DisplayAlertAsync("Error", $"{ex.Message}", "Ok");
                 return;
             }
+        }
+
+
+        private async void OnDeleteUserClicked(Object sender , EventArgs e)
+        {
+            if (sender is Button button && button.CommandParameter is User user )
+            {
+
+                bool conf = await DisplayAlertAsync("Confirm Delete","Are you sure you want to delete this user ?","Yes","No");
+
+                if (!conf) return;
+
+                try
+                {
+                    _context.Users.Remove(user);
+                    await _context.SaveChangesAsync();
+
+                    Users.Remove(user);
+                    await DisplayAlertAsync("Success", $"User {user.Name} is Deleted", "Ok");
+
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlertAsync("Error",$"{ex.Message}","Ok");
+                    return;
+                }
+            }
+
+            
         }
     }
 }
