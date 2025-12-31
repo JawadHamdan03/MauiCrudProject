@@ -31,5 +31,31 @@ namespace CRUD_APP
                 DisplayAlert("Error",$"failed to load users {ex.Message}","OK");
             }
         }
+
+
+        private async void OnAddUserClicked(Object sender , EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(NameEntry.Text))
+            {
+                await DisplayAlert("Error","name can't be Empty","Ok");
+                return;
+            }
+
+            try
+            {
+                var user = new User { Name = NameEntry.Text.Trim() };
+                await _context.Users.AddAsync(user);
+                await _context.SaveChangesAsync();
+
+                Users.Add(user);
+                NameEntry.Text = "";
+                await DisplayAlert("Success", $"User :{user.Name} added successfully","OK");
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"{ex.Message}", "Ok");
+                return;
+            }
+        }
     }
 }

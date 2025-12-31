@@ -5,6 +5,12 @@
     <ScrollView>
         <VerticalStackLayout Spacing="25" Padding="30" VerticalOptions="Center">
             <Label Text="User Management" FontSize="32" HorizontalOptions="Center" />
+            
+            <VerticalStackLayout Spacing="10">
+                <Entry x:Name="NameEntry" Placeholder="Enter User Name"/>
+                <Button Text="Add User" Clicked="OnAddUserClicked" />
+            </VerticalStackLayout>
+            
             <CollectionView ItemsSource="{Binding Users}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
