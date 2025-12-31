@@ -16,6 +16,11 @@
                     <DataTemplate>
                         <Grid Padding="10" ColumnDefinitions="*,Auto,Auto">
                             <Label Grid.Column="0" Text="{Binding Name}" VerticalOptions="Center"/>
+                            <Button Grid.Column="1" Text="Edit" BackgroundColor="Orange" 
+                                    TextColor="White" Margin="5,0" CommandParameter="{Binding .}"
+                                    Clicked="OnEditUserCilcked"
+                                    />
+                                    
                             <Button
                                 Text="Delete User"
                                 Grid.Column="2"

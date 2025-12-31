@@ -86,5 +86,40 @@ namespace CRUD_APP
 
             
         }
+
+
+
+        private async void OnEditUserCilcked(Object sender , EventArgs e)
+        {
+            if(sender is Button button && button.CommandParameter is User user)
+            {
+                string newName = await DisplayPromptAsync("Edit User","Enter new Name :",initialValue:user.Name);
+
+                if (string.IsNullOrWhiteSpace(newName))
+                {
+                    await DisplayAlertAsync("Edit User","Name can not be empty","Ok");
+                    return;
+                }
+
+                try
+                {
+                    user.Name = newName.Trim();
+                    _context.Users.Update(user);
+                    await _context.SaveChangesAsync();
+
+                    var index = Users.IndexOf(user);
+                    if (index!=-1)
+                    {
+                        Users[index] = user;
+
+                    }
+                    await DisplayAlertAsync("Success","User updated successfully","Ok");
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlertAsync("Error",$"Failed to Update user :{ex.Message}","Ok");
+                }
+            }
+        }
     }
 }
